@@ -6,6 +6,7 @@ import oaipmh.error
 from oaipmh.interfaces import IOAI
 from oaipmh.metadata import global_metadata_registry
 from oaipmh.server import Server, oai_dc_writer, NS_XSI
+from django.contrib.auth.models import User, Group
 
 class FederatedExperimentProvider(DcExperimentProvider):
    
@@ -14,5 +15,6 @@ class FederatedExperimentProvider(DcExperimentProvider):
             '_writeMetadata': lambda e, m: oai_dc_writer(e, m),
             'title': [experiment.title],
             'description': [experiment.description],
-            'identifier': [str(experiment.id)]
+            'identifier': [str(experiment.id)],                 
+            'creator': str(experiment.get_owners()[0].id)
         })

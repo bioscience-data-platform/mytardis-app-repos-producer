@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 
 
 def user(request, user_id):
+    """
+    Return json for a specified user profile
+    """
+    #FIXME: currently public access
     try:
         user = User.objects.get(id=user_id)
     except User.DoesNotExist:

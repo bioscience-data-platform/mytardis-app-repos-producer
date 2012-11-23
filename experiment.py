@@ -6,6 +6,9 @@ from oaipmh.server import oai_dc_writer
 
 
 class FederatedExperimentProvider(DcExperimentProvider):
+    """
+    Dublin Core provider with identifier and creator fieldsets
+    """
 
     def _get_experiment_metadata(self, experiment, metadataPrefix):
         return Metadata({
@@ -13,5 +16,5 @@ class FederatedExperimentProvider(DcExperimentProvider):
             'title': [experiment.title],
             'description': [experiment.description],
             'identifier': [str(experiment.id)],
-            'creator': str(experiment.get_owners()[0].id)
+            'creator': [str(x.id) for x in experiment.get_owners()]
         })

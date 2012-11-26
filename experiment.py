@@ -16,5 +16,5 @@ class FederatedExperimentProvider(DcExperimentProvider):
             'title': [experiment.title],
             'description': [experiment.description],
             'identifier': [str(experiment.id)],
-            'creator': [str(x.id) for x in experiment.get_owners()]
+            'creator': str(experiment.created_by.id)
         })

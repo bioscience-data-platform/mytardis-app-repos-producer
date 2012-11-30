@@ -1,13 +1,7 @@
 from django.http import HttpResponse
 import json
 from django.contrib.auth.models import User
-from tardis.tardis_portal.models import Experiment, ExperimentParameter, \
-    DatafileParameter, DatasetParameter, ExperimentACL, Dataset_File, \
-    DatafileParameterSet, ParameterName, GroupAdmin, Schema, \
-    Dataset, ExperimentParameterSet, DatasetParameterSet, \
-    License, UserProfile, UserAuthentication, Token
-from django.contrib.auth.models import User, Group, AnonymousUser
-
+from tardis.tardis_portal.models import Experiment
 
 
 def user(request, user_id):
@@ -48,7 +42,10 @@ def get_acls(request, exp_id):
 
     if experiment.public_access in [Experiment.PUBLIC_ACCESS_FULL,
                               Experiment.PUBLIC_ACCESS_METADATA]:
-        # FIXME: skipping system ACLS for now
+        # TODO: only send user owner-like acls for now, because difficult
+        # to reconcile rest on destination which may have different existing
+        # users groups etc.
+
         acls = []
         for user_acl in Experiment.safe.user_acls(request, experiment.id):
             acl = {}

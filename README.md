@@ -26,4 +26,12 @@ Add application ``INSTALLED_APPS``.  For example::
 
     INSTALLED_APPS += ("tardis.apps.reposproducer", )
 
-Ensure that Sites model has valid entry (including http: at the beginning)
+Ensure that Sites model has valid entry.
+
+Add unique key entry to settings.py::
+
+    KEY_NAME = "experiment_key"
+    KEY_NAMESPACE = "http://tardis.edu.au/schemas/experimentkey"
+
+Finally add the corresponding schema and parametername using the admin tool
+

@@ -111,6 +111,19 @@ class ExperimentKeyService(object):
             name=self.key_name,
             string_value=key_value)
         ep.save()
+        # Need to reload key to verify that it actually been saved, because
+        # destination may ingest METS code and miss this parameter if it has
+        # been delayed.  If we can't retrieve parameter, then pass back None,
+        # which is an error state at the destination
+        doi_params = ExperimentParameter.objects.filter(
+            name=self.key_name,
+            parameterset__schema=self.schema,
+            parameterset__experiment=eps)
+        if doi_params.count() >= 1:
+            key_value = doi_params[0].string_value
+            return key_value
+        else:
+            return None
         return key_value
 
 

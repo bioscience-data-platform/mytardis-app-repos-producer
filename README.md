@@ -24,7 +24,7 @@ Added to the settings.py ``OAIPMH_PROVIDERS``.  For example::
 
 Add application ``INSTALLED_APPS``.  For example::
 
-    INSTALLED_APPS += ("tardis.apps.reposproducer", )
+    INSTALLED_APPS += ("tardis.apps.reposproducer", "tardis.apps.oaipmh")
 
 Ensure that Sites model has valid entry.
 
